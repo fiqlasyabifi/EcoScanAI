@@ -1,11 +1,13 @@
 package com.example.ecoscanai.ui.history
 
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecoscanai.databinding.ItemHistoryBinding
 import com.example.ecoscanai.data.local.GarbageEntity
+import com.example.ecoscanai.ui.result.ResultActivity
 
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
@@ -21,23 +23,20 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
             binding.tvHistoryDate.text = item.date
 
             if (item.imageUri != null) {
-                val uri = android.net.Uri.parse(item.imageUri)
+                val uri = Uri.parse(item.imageUri)
                 binding.imgHistoryThumbnail.setImageURI(uri)
             } else {
                 binding.imgHistoryThumbnail.setImageResource(android.R.drawable.ic_menu_gallery)
             }
 
-            // 👇 TAMBAHKAN BLOK KLIK INI 👇
             binding.root.setOnClickListener {
                 val context = binding.root.context
-                val intent = android.content.Intent(context, com.example.ecoscanai.ui.result.ResultActivity::class.java)
+                val intent = Intent(context, ResultActivity::class.java)
 
                 // Bawa semua data yang sudah tersimpan
                 intent.putExtra("EXTRA_IMAGE_URI", item.imageUri)
                 intent.putExtra("EXTRA_TRASH_TYPE", item.trashType)
                 intent.putExtra("EXTRA_CONFIDENCE", item.confidenceScore)
-
-                // Ini "Tombol Rahasia"-nya agar AI tidak scan ulang
                 intent.putExtra("EXTRA_IS_FROM_HISTORY", true)
 
                 context.startActivity(intent)

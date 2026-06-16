@@ -121,7 +121,7 @@ class ScannerFragment : Fragment() {
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    // 🎉 Jika berhasil dipotret, bawa alamat foto (URI) lalu pindah ke halaman ResultActivity
+                    // Jika berhasil dipotret, bawa alamat foto (URI) lalu pindah ke halaman ResultActivity
                     val intent = Intent(requireContext(), ResultActivity::class.java)
                     intent.putExtra("EXTRA_IMAGE_URI", photoFile.toURI().toString())
                     startActivity(intent)

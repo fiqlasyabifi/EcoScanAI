@@ -34,12 +34,12 @@ class HistoryFragment : Fragment() {
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
         binding.rvHistory.adapter = historyAdapter
 
-        // 2. Panggil Kurir (ViewModel) kita
+        // 2. Panggil Kurir (ViewModel)
         historyViewModel = ViewModelProvider(this)[HistoryViewModel::class.java]
 
-        // 3. Amati (Observe) Database secara Real-Time!
+        // 3. Amati (Observe) Database secara Real-Time
         historyViewModel.allHistory.observe(viewLifecycleOwner) { historyList ->
-            // Begitu ada data (atau perubahan) di database, langsung kirim ke adapter!
+            // Begitu ada data (atau perubahan) di database, langsung kirim ke adapter
             historyAdapter.setData(historyList)
         }
     }

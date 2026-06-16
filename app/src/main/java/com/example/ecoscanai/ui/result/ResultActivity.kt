@@ -86,7 +86,27 @@ class ResultActivity : AppCompatActivity() {
         }
 
         binding.btnFindNearestBin.setOnClickListener {
-            Toast.makeText(this, "Fitur Maps & Lokasi akan segera hadir!", Toast.LENGTH_SHORT).show()
+            // Kita bisa membuat pencariannya lebih pintar berdasarkan jenis sampah
+            val trashType = binding.tvWasteClassification.text.toString()
+            val keyword = if (trashType == "Plastik" || trashType == "Kertas" || trashType == "Kardus" || trashType == "Logam / Aluminium") {
+                "Bank Sampah terdekat" // Karena barang ini punya nilai jual
+            } else {
+                "Tempat Pembuangan Sampah terdekat"
+            }
+
+            // Membuat perintah pencarian untuk Google Maps
+            val gmmIntentUri = android.net.Uri.parse("geo:0,0?q=$keyword")
+            val mapIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps") // Spesifik buka di Google Maps
+
+            try {
+                startActivity(mapIntent)
+            } catch (e: android.content.ActivityNotFoundException) {
+                // Jika pengguna tidak punya aplikasi Google Maps, buka lewat browser
+                val browserUri = android.net.Uri.parse("https://www.google.com/maps/search/$keyword")
+                val browserIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, browserUri)
+                startActivity(browserIntent)
+            }
         }
     }
 

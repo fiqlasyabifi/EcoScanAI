@@ -1,4 +1,3 @@
-// Perbarui file app/src/main/java/com/example/ecoscanai/ml/GarbageClassifier.kt
 package com.example.ecoscanai.ml
 
 import android.content.Context
@@ -19,11 +18,6 @@ class GarbageClassifier(context: Context) {
 
     private var interpreter: Interpreter
 
-    /**
-     * PERBAIKAN URUTAN LABEL:
-     * Berdasarkan tes Anda, botol plastik terdeteksi di Index 0.
-     * Maka kita asumsikan Index 0 adalah "plastic".
-     */
     private val labels = listOf("cardboard", "glass", "metal", "paper", "plastic", "trash")
 
     init {

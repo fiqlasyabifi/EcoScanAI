@@ -21,7 +21,7 @@ class HistoryViewModel(application: Application) : AndroidViewModel(application)
         allHistory = repository.allHistory
     }
 
-    // Fungsi untuk memasukkan data yang aman dipanggil dari Fragment/Activity lain nanti
+    // Fungsi untuk memasukkan data yang aman dipanggil dari Fragment/Activity lain
     fun insert(garbage: GarbageEntity) = viewModelScope.launch {
         repository.insert(garbage)
     }

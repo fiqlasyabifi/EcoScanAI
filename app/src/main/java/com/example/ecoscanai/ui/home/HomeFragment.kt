@@ -45,8 +45,6 @@ class HomeFragment : Fragment() {
 
         // 3. Hidupkan Tombol Utama "Pindai Sampah"
         binding.btnMainScan.setOnClickListener {
-            // Karena MainActivity menggunakan transaksi Fragment manual dan bukan NavComponent,
-            // kita memicu navigasi dengan memindah item terpilih pada BottomNavigationView.
             val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
             bottomNav.selectedItemId = R.id.navigation_scan
         }

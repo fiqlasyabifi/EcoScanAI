@@ -234,7 +234,7 @@
             android:layout_height="54dp"
             android:layout_marginTop="28dp"
             android:layout_marginBottom="10dp"
-            android:text="Cari Tempat Sampah Terdekat"
+            android:text="Cari Bank Sampah terdekat"
             android:fontFamily="@font/poppins"
             android:textSize="13sp"
             android:textStyle="bold"

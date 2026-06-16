@@ -23,7 +23,7 @@ abstract class GarbageDatabase : RoomDatabase() {
                     GarbageDatabase::class.java,
                     "garbage_database"
                 )
-                    .fallbackToDestructiveMigration() // Aman digunakan saat kodingan tabel berubah-ubah
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance
