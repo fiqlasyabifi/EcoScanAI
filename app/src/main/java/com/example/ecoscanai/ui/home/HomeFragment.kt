@@ -1,60 +1,59 @@
 package com.example.ecoscanai.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.ecoscanai.R
+import com.example.ecoscanai.databinding.FragmentHomeBinding
+import com.example.ecoscanai.ui.history.HistoryViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
+    // Siapkan variabel ViewModel untuk membaca database
+    private lateinit var historyViewModel: HistoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 1. Sambungkan ViewModel ke Fragment ini
+        historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
+
+        // 2. Pasang "CCTV" (Observer) untuk memantau jumlah data di database secara real-time
+        historyViewModel.allHistory.observe(viewLifecycleOwner) { historyList ->
+            // Hitung total data yang ada di dalam riwayat
+            val totalScanned = historyList.size.toString()
+
+            // Tembakkan angkanya ke layar UI
+            binding.tvCountTotal.text = totalScanned
+            binding.tvCountSaved.text = totalScanned
+        }
+
+        // 3. Hidupkan Tombol Utama "Pindai Sampah"
+        binding.btnMainScan.setOnClickListener {
+            // Karena MainActivity menggunakan transaksi Fragment manual dan bukan NavComponent,
+            // kita memicu navigasi dengan memindah item terpilih pada BottomNavigationView.
+            val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+            bottomNav.selectedItemId = R.id.navigation_scan
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

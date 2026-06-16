@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">EcoScan AI</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="home_welcome">Halo, Pahlawan Lingkungan!</string>
+    <string name="home_subtitle">Siap membuat perubahan hari ini? Mari memilah dengan lebih cerdas.</string>
+    <string name="home_btn_scan">Pindai Sampah</string>
+    <string name="home_total_scan">TOTAL PEMINDAIAN</string>
+    <string name="home_saved_trash">SAMPAH TERSIMPAN</string>
+
+    <string name="result_title">Hasil Pemindaian</string>
+    <string name="result_confidence_title">Tingkat Keyakinan</string>
+    <string name="result_tips_title">💡 Tips Daur Ulang</string>
+    <string name="result_btn_location">Cari Tempat Sampah Terdekat</string>
+
+    <string name="history_title">Riwayat</string>
+    <string name="history_subtitle">Daftar pemindaian klasifikasi sampah Anda.</string>
 </resources>
